@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="jokeapi",
     packages=["jokeapi"],
-    version="0.2.4",
+    version="0.2.5",
     license="GNU General Public License v3 (GPLv3)",
     description="An API Wrapper for Sv443's JokeAPI [Unofficial]",
     long_description=long_description,
