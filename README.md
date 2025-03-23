@@ -305,3 +305,5 @@ Developer contact:
 [e-mail](mailto:leet_haker@cyber-wizard.com)
 
 [Twitter](https://twitter.com/HakkerLeet)
+
+This project is tested with BrowserStack
