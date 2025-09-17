@@ -1,5 +1,5 @@
 import urllib3
-import urllib
+import urllib.parse
 import simplejson as json
 import re
 
@@ -7,7 +7,7 @@ import re
 class Jokes:
     def __init__(self):
         self.http = urllib3.PoolManager()
-        self.info = json.loads(self.http.request('GET', "https://sv443.net/jokeapi/v2/info").data.decode('utf-8'))['jokes']
+        self.info = json.loads(self.http.request('GET', "https://v2.jokeapi.dev/info").data.decode('utf-8'))['jokes']
         # print("Sv443's JokeAPI")
 
     def build_request(
@@ -21,7 +21,7 @@ class Jokes:
         amount=1,
         lang="en"
     ):
-        r = "https://sv443.net/jokeapi/v2/joke/"
+        r = "https://v2.jokeapi.dev/joke/"
 
         if len(category):
             for c in category:
@@ -31,7 +31,7 @@ class Jokes:
                         You selected {c}.
                         Available categories are:
                             "programming"
-                            "miscellaneous"
+                            "misc"
                             "dark"
                             "pun".
                         Leave blank for any.'''
@@ -113,7 +113,8 @@ class Jokes:
             )
         r += f"&amount={amount}"
 
-        r += f"&lang={lang}"
+        if lang:
+            r += f"&lang={lang}"
 
         return r
 
@@ -171,7 +172,7 @@ class Jokes:
         search_string=None,
         id_range=None,
         amount=1,
-        lang=None,
+        lang="en",
         auth_token=None,
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0",
         return_headers=False
