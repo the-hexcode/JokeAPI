@@ -79,6 +79,21 @@ def test_id_range(jokes):
 def test_invalid_category_raises(jokes):
     with pytest.raises(ValueError):
         jokes.get_joke(category=["not_a_real_category"])  # invalid
+    
+@pytest.mark.timeout(5)
+def test_invalid_blacklist_flag_raises(jokes):
+    with pytest.raises(ValueError):
+        jokes.get_joke(blacklist=["notaflag"])
+
+@pytest.mark.timeout(5)
+def test_invalid_search_string_type_raises(jokes):
+    with pytest.raises(ValueError):
+        jokes.get_joke(search_string=123)
+
+@pytest.mark.timeout(5)
+def test_invalid_lang_raises(jokes):
+    with pytest.raises(ValueError):
+        jokes.get_joke(lang="invalidlang")
 
 @pytest.mark.timeout(5)
 def test_invalid_response_format_raises(jokes):
