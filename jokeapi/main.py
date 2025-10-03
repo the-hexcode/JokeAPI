@@ -30,10 +30,7 @@ class Jokes:
                         f'''Invalid category selected.
                         You selected {c}.
                         Available categories are:
-                            "programming"
-                            "misc"
-                            "dark"
-                            "pun".
+                            {", ".join(c.lower() for c in self.info["categories"])}
                         Leave blank for any.'''
                     )
 
@@ -46,15 +43,11 @@ class Jokes:
                 if b not in self.info["flags"]:
                     raise ValueError(
                         f'''
-
-
                         You have blacklisted flags which are not available or you have not put the flags in a list.
                         Available flags are:
-                            {"""
-                            """.join(self.info["flags"])}
+                            {", ".join(self.info["flags"])}
                         '''
                     )
-                    return
             blacklistFlags = ",".join(blacklist)
         else:
             blacklistFlags = None
@@ -69,7 +62,6 @@ class Jokes:
                     '''Invalid joke type.
                     Available options are "single" or "twopart".'''
                 )
-                return
         else:
             type = "Any"
 
@@ -113,8 +105,11 @@ class Jokes:
             )
         r += f"&amount={amount}"
 
-        if lang:
-            r += f"&lang={lang}"
+        if lang not in self.info["idRange"].keys():
+            raise ValueError(
+                f"Language '{lang}' not available. Available languages are: {', '.join(self.info['idRange'].keys())}"
+            )
+        r += f"&lang={lang}"
 
         return r
 
